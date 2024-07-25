@@ -2,6 +2,7 @@ package dev.gruenkohl.model
 
 import dev.gruenkohl.feature.TrackManager
 import dev.gruenkohl.sql.LinkManager
+import dev.gruenkohl.webhook
 import io.ktor.util.logging.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -37,7 +38,7 @@ fun startTracking() {
         val linkManager = LinkManager()
         LOGGER.info("Tracking")
         scope.launch {
-            val hook = DiscordWebhook("https://discord.com/api/webhooks/1264254783116673075/M-r8TtWMcQkfBrf4CyVIxe7DlPfTvhGvH23olAo5gTEHs6z1xyU89JYiAICV-w1WW0aM")
+            val hook = DiscordWebhook(webhook)
             hook.setContent("tracking now")
             hook.execute()
             linkManager.getAllLinks().map {
